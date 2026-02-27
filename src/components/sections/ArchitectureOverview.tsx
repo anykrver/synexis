@@ -22,49 +22,49 @@ const ARCHITECTURE_BLOCKS: BlockContent[] = [
   {
     step: '01',
     title: 'Input Encoder',
-    shortDesc: 'Converts digital activations to analog voltage pulses.',
+    shortDesc: 'Converts digital activations into calibrated analog voltage pulses.',
     icon: <Radio className="w-5 h-5" />,
-    simple: 'The Input Encoder takes digital data (like pixels or features) and converts them into analog voltage levels or timed spikes that the ReRAM array can understand.',
+    simple: 'The Input Encoder converts digital activations into calibrated analog voltage pulses using DAC stages. This is the first step in the silicon-level pipeline.',
     technical: {
       equation: 'V_{out} = f(D_{in})',
-      explanation: 'Implements high-precision DAC or temporal encoding schemes.',
-      details: ['8-bit DAC resolution', 'Rate or Temporal encoding', 'Low-latency signal conditioning']
+      explanation: 'Implements high-precision DAC with calibrated voltage encoding for crossbar input.',
+      details: ['8-bit DAC resolution', 'Calibrated voltage pulses', 'Low-latency signal conditioning']
     }
   },
   {
     step: '02',
-    title: 'ReRAM Crossbar',
-    shortDesc: 'Dense array of memristors storing synaptic weights.',
+    title: 'ReRAM Crossbar Tile',
+    shortDesc: 'Stores weights as conductance states and performs in-situ VMM.',
     icon: <Cpu className="w-5 h-5" />,
-    simple: 'The ReRAM Crossbar performs analog matrix multiplication directly in hardware. Each cell stores a conductance value (weight). Input voltages are applied across word lines, and output current equals the weighted sum.',
+    simple: 'The ReRAM Crossbar Tile stores weights as conductance states and performs in-situ vector-matrix multiplication. Each synaptic weight uses a 1T1R structure for precise programming and reduced sneak path currents.',
     technical: {
       equation: 'I_j = \\sum (V_i × G_{ij})',
-      explanation: 'V_i is input voltage, G_{ij} is memristor conductance, I_j is output current.',
-      details: ['Analog VMM (Vector-Matrix Mult)', 'Non-volatile weight storage', 'Zero-leakage compute-in-memory']
+      explanation: 'V_i is input voltage, G_{ij} is memristor conductance, I_j is output current. Weights retained non-volatilely.',
+      details: ['1T1R cell structure', 'Non-volatile weight retention', 'Sneak path mitigation', 'CMOS back-end compatible']
     }
   },
   {
     step: '03',
-    title: 'Current Accumulator',
-    shortDesc: 'Integrates analog currents along the bitlines.',
+    title: 'Current Sense + ADC',
+    shortDesc: 'Digitizes accumulated current outputs from the crossbar bitlines.',
     icon: <Zap className="w-5 h-5" />,
-    simple: 'This stage collects the tiny currents flowing from each memristor. It uses Kirchhoff\'s Current Law (KCL) to sum them up instantly without needing digital adders.',
+    simple: 'This stage uses transimpedance amplifiers to sense accumulated currents along bitlines, then converts them back to digital outputs via ADCs.',
     technical: {
-      equation: '\\sum I_{in} = I_{out}',
-      explanation: 'Uses Transimpedance Amplifiers (TIA) to convert current to voltage.',
-      details: ['KCL-based analog summation', 'High-bandwidth TIA stages', 'Noise-filtering integration']
+      equation: '\\sum I_{in} = I_{out} → D_{out}',
+      explanation: 'Uses Transimpedance Amplifiers (TIA) and ADCs to convert analog results to digital.',
+      details: ['KCL-based analog summation', 'High-bandwidth TIA stages', 'ADC digitization']
     }
   },
   {
     step: '04',
-    title: 'Spike Generator',
-    shortDesc: 'Fires digital spikes when threshold is reached.',
+    title: 'Digital Post-Processing',
+    shortDesc: 'Applies activation functions, normalization, and control logic.',
     icon: <Activity className="w-5 h-5" />,
-    simple: 'Mimics biological neurons. It integrates the accumulated current over time and fires a digital spike once it hits a specific threshold, passing the signal to the next layer.',
+    simple: 'The digital post-processing stage applies activation functions, batch normalization, and control logic. Tiles can be composed into larger arrays for scalable architectures.',
     technical: {
-      equation: 'τ_m dv/dt = -(v - v_rest) + R·I(t)',
-      explanation: 'Leaky Integrate-and-Fire (LIF) neuron model implementation.',
-      details: ['Programmable firing thresholds', 'Leaky integration dynamics', 'Asynchronous spike output']
+      equation: 'y = σ(BN(x))',
+      explanation: 'Digital logic handles non-linear operations and inter-tile routing.',
+      details: ['Activation function units', 'Batch normalization', 'Tile composition logic', 'Scalable array architecture']
     }
   }
 ];
@@ -77,8 +77,8 @@ export default function ArchitectureOverview() {
     <section className="py-24 relative overflow-hidden" id="architecture" style={{ borderTop: '1px solid var(--ne-border)' }}>
       <Container>
         <SectionTitle
-          subtitle="System Architecture"
-          title="Silicon-Level Integration"
+          subtitle="System Integration"
+          title="Silicon-Level Pipeline"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -200,28 +200,6 @@ export default function ArchitectureOverview() {
                             </p>
                           </motion.div>
                         )}
-
-                        <div className="mt-10 p-6 rounded-xl border border-[var(--ne-border)] flex flex-col items-center justify-center min-h-[120px]"
-                          style={{ backgroundColor: 'var(--ne-bg)' }}
-                        >
-                          <div className="text-[10px] font-mono uppercase tracking-[0.4em] animate-pulse" style={{ color: 'var(--ne-accent)', opacity: 0.6 }}>
-                            Active Simulation Mode
-                          </div>
-                          <div className="mt-4 flex gap-1">
-                            {Array.from({ length: 12 }).map((_, i) => (
-                              <motion.div
-                                key={i}
-                                animate={{
-                                  height: [4, Math.random() * 20 + 10, 4],
-                                  opacity: [0.2, 1, 0.2]
-                                }}
-                                transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
-                                className="w-[2px] rounded-full"
-                                style={{ backgroundColor: 'rgba(var(--ne-accent-rgb), 0.3)' }}
-                              />
-                            ))}
-                          </div>
-                        </div>
                       </div>
                     </motion.div>
                   )}
@@ -240,34 +218,92 @@ export default function ArchitectureOverview() {
           })}
         </div>
 
-        {/* Block Diagram */}
-        <div className="mt-12 p-8 flex flex-col items-center justify-center min-h-[200px] rounded-xl border border-dashed border-[var(--ne-border)]"
+        {/* Architecture Diagram */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 p-6 md:p-8 rounded-xl border border-[var(--ne-border)] overflow-x-auto"
           style={{ backgroundColor: 'var(--ne-surface)' }}
         >
-          <div className="flex items-center gap-4 md:gap-8 text-xs font-mono flex-wrap justify-center" style={{ color: 'var(--ne-text-muted)' }}>
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-lg border border-[var(--ne-border)] flex items-center justify-center">DAC</div>
-              <span className="text-[10px]" style={{ color: 'var(--ne-text-dim)' }}>INPUT</span>
-            </div>
-            <div style={{ color: 'var(--ne-accent)' }} className="animate-pulse">→</div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-24 h-12 rounded-lg flex items-center justify-center"
-                style={{ border: '1px solid var(--ne-accent)', backgroundColor: 'rgba(var(--ne-accent-rgb), 0.05)' }}
-              >CROSSBAR</div>
-              <span className="text-[10px]" style={{ color: 'var(--ne-text-dim)' }}>COMPUTE</span>
-            </div>
-            <div style={{ color: 'var(--ne-accent)' }} className="animate-pulse">→</div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-lg border border-[var(--ne-border)] flex items-center justify-center">TIA</div>
-              <span className="text-[10px]" style={{ color: 'var(--ne-text-dim)' }}>SENSE</span>
-            </div>
-            <div style={{ color: 'var(--ne-accent)' }} className="animate-pulse">→</div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-lg border border-[var(--ne-border)] flex items-center justify-center">LIF</div>
-              <span className="text-[10px]" style={{ color: 'var(--ne-text-dim)' }}>SPIKE</span>
-            </div>
-          </div>
-        </div>
+          <svg width="100%" height="auto" viewBox="0 0 1400 360" xmlns="http://www.w3.org/2000/svg" className="min-w-[800px]">
+            <defs>
+              <style>{`
+                .arch-block { fill: var(--ne-surface); stroke: var(--ne-border); stroke-width: 1.5; rx: 12; }
+                .arch-highlight { fill: var(--ne-surface); stroke: var(--ne-accent); stroke-width: 2; rx: 12; }
+                .arch-title { font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: 14px; font-weight: 600; fill: var(--ne-text-headline); }
+                .arch-subtitle { font-family: 'Inter', sans-serif; font-size: 11px; fill: var(--ne-text-muted); }
+                .arch-domain { font-family: 'IBM Plex Mono', monospace; font-size: 10px; fill: var(--ne-text-dim); letter-spacing: 2px; text-transform: uppercase; }
+                .arch-arrow { stroke: var(--ne-accent); stroke-width: 1.5; fill: none; stroke-dasharray: 6 6; animation: archFlow 3s linear infinite; }
+                .arch-arrow-label { font-family: 'Inter', sans-serif; font-size: 10px; fill: var(--ne-text-dim); }
+                .arch-pulse { animation: archPulseGlow 2.5s ease-in-out infinite; }
+                @keyframes archFlow {
+                  from { stroke-dashoffset: 0; }
+                  to { stroke-dashoffset: -24; }
+                }
+                @keyframes archPulseGlow {
+                  0% { stroke: var(--ne-accent); stroke-opacity: 1; }
+                  50% { stroke: var(--ne-accent); stroke-opacity: 0.5; }
+                  100% { stroke: var(--ne-accent); stroke-opacity: 1; }
+                }
+              `}</style>
+            </defs>
+
+            {/* Title */}
+            <text x="700" y="30" textAnchor="middle" className="arch-title" fontSize="16">
+              NeuraEdge Mixed-Signal In-Memory Compute Architecture
+            </text>
+
+            {/* Domain Labels */}
+            <text x="250" y="70" className="arch-domain">DIGITAL</text>
+            <text x="630" y="70" className="arch-domain">ANALOG COMPUTE</text>
+            <text x="1030" y="70" className="arch-domain">DIGITAL</text>
+
+            {/* Host Block */}
+            <rect x="80" y="120" width="170" height="100" className="arch-block" />
+            <text x="165" y="157" textAnchor="middle" className="arch-title">HOST</text>
+            <text x="165" y="180" textAnchor="middle" className="arch-subtitle">ARM / RISC-V</text>
+
+            {/* Digital Frontend */}
+            <rect x="290" y="110" width="190" height="120" className="arch-block" />
+            <text x="385" y="148" textAnchor="middle" className="arch-title">DIGITAL FRONTEND</text>
+            <text x="385" y="172" textAnchor="middle" className="arch-subtitle">Scheduler</text>
+            <text x="385" y="192" textAnchor="middle" className="arch-subtitle">SRAM Buffer</text>
+
+            {/* Input Encoder */}
+            <rect x="560" y="110" width="190" height="120" className="arch-block" />
+            <text x="655" y="148" textAnchor="middle" className="arch-title">INPUT ENCODER</text>
+            <text x="655" y="172" textAnchor="middle" className="arch-subtitle">DAC / Pulse Gen</text>
+
+            {/* ReRAM Crossbar (Highlighted + Pulsing) */}
+            <rect x="790" y="100" width="230" height="140" className="arch-highlight arch-pulse" />
+            <text x="905" y="145" textAnchor="middle" className="arch-title">ReRAM CROSSBAR</text>
+            <text x="905" y="170" textAnchor="middle" className="arch-subtitle">128×128 · 1T1R</text>
+            <text x="905" y="190" textAnchor="middle" className="arch-subtitle">Analog VMM</text>
+
+            {/* ADC + Sense */}
+            <rect x="1110" y="110" width="190" height="120" className="arch-block" />
+            <text x="1205" y="148" textAnchor="middle" className="arch-title">ADC + SENSE</text>
+            <text x="1205" y="172" textAnchor="middle" className="arch-subtitle">Column Readout</text>
+
+            {/* Arrows */}
+            <line x1="250" y1="170" x2="290" y2="170" className="arch-arrow" />
+            <line x1="480" y1="170" x2="560" y2="170" className="arch-arrow" />
+            <line x1="750" y1="170" x2="790" y2="170" className="arch-arrow" />
+            <line x1="1020" y1="170" x2="1110" y2="170" className="arch-arrow" />
+
+            {/* Arrow Labels */}
+            <text x="270" y="158" textAnchor="middle" className="arch-arrow-label">Model Data</text>
+            <text x="520" y="158" textAnchor="middle" className="arch-arrow-label">Activations</text>
+            <text x="770" y="158" textAnchor="middle" className="arch-arrow-label">Voltages</text>
+            <text x="1065" y="158" textAnchor="middle" className="arch-arrow-label">Analog Currents</text>
+
+            {/* Bottom note */}
+            <text x="700" y="310" textAnchor="middle" className="arch-domain" fontSize="10">
+              TILES CAN BE COMPOSED INTO LARGER ARRAYS FOR SCALABLE ARCHITECTURES
+            </text>
+          </svg>
+        </motion.div>
       </Container>
     </section>
   );

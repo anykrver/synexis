@@ -9,11 +9,11 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import SmoothScroll from './components/layout/SmoothScroll';
 import Hero from './components/sections/Hero';
+import Problem from './components/sections/Problem';
 import Technology from './components/sections/Technology';
 import ArchitectureOverview from './components/sections/ArchitectureOverview';
 import Performance from './components/sections/Performance';
 import DevicePhysics from './components/sections/DevicePhysics';
-import EdgeAI from './components/sections/EdgeAI';
 import Applications from './components/sections/Applications';
 import Roadmap from './components/sections/Roadmap';
 import Research from './components/sections/Research';
@@ -39,11 +39,11 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <Problem />
       <Technology />
       <ArchitectureOverview />
-      <Performance />
       <DevicePhysics />
-      <EdgeAI />
+      <Performance />
       <Applications />
       <Roadmap />
       <Research />

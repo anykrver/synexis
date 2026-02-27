@@ -15,7 +15,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       const stored = localStorage.getItem('neuraedge-theme') as Theme;
       if (stored === 'dark' || stored === 'light') return stored;
     }
-    return 'dark';
+    return 'light';
   });
 
   useEffect(() => {

@@ -7,8 +7,8 @@ export default function DevicePhysics() {
     <section className="py-24" id="physics" style={{ borderTop: '1px solid var(--ne-border)' }}>
       <Container>
         <SectionTitle
-          subtitle="Device Physics"
-          title="1T1R Memristor Structure"
+          subtitle="Core Architecture"
+          title="1T1R ReRAM Crossbar"
         />
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -48,17 +48,21 @@ export default function DevicePhysics() {
           </Card>
 
           <div className="flex flex-col justify-center space-y-8">
+            <p className="text-lg font-light leading-relaxed" style={{ color: 'var(--ne-text-muted)' }}>
+              Each synaptic weight is implemented using a one-transistor, one-resistor (1T1R) structure to enable precise weight programming and improved retention stability.
+            </p>
+
             <div>
-              <h4 className="font-mono text-lg mb-2">Filament Formation</h4>
+              <h4 className="font-mono text-lg mb-2">Precise Weight Programming</h4>
               <p className="text-sm leading-relaxed font-light" style={{ color: 'var(--ne-text-muted)' }}>
-                By applying programming voltage pulses, oxygen vacancies migrate to form a conductive filament across the insulating oxide layer. The thickness of this filament dictates the analog conductance state (synaptic weight).
+                Oxygen vacancies migrate under programming voltage to form a conductive filament. The filament thickness dictates the analog conductance state, enabling multi-level weight storage with reduced sneak path currents.
               </p>
             </div>
 
             <div>
               <h4 className="font-mono text-lg mb-2">Non-Volatile Retention</h4>
               <p className="text-sm leading-relaxed font-light" style={{ color: 'var(--ne-text-muted)' }}>
-                Once programmed, the weights are retained without power for &gt;10 years at 85°C, eliminating the need to constantly fetch weights from external DRAM.
+                Weights are retained non-volatilely, eliminating constant refresh and reducing standby energy. Compatible with CMOS back-end integration for scalable manufacturing.
               </p>
             </div>
 

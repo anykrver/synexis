@@ -14,92 +14,103 @@ export default function Problem() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <SectionTitle 
-              subtitle="The Bottleneck"
-              title="The Von Neumann Wall"
+            <SectionTitle
+              subtitle="The Problem"
+              title="The Memory Wall Limits Edge Intelligence"
             />
-            <div className="space-y-8 text-[var(--color-text-body)] font-light">
-              <p className="text-lg leading-relaxed">
-                Modern AI models are growing exponentially, but traditional computing architectures physically separate processing and memory. This separation is the <span className="text-white font-medium">fundamental limit</span> of digital intelligence.
+            <div className="space-y-8 font-light">
+              <p className="text-lg leading-relaxed" style={{ color: 'var(--ne-text)' }}>
+                Modern AI accelerators are fundamentally constrained by data movement. In conventional architectures, the separation between compute and memory creates an insurmountable bottleneck.
               </p>
-              
+
               <div className="space-y-6">
                 <div className="flex gap-6 group">
-                  <div className="p-3 lab-panel rounded-sm h-fit group-hover:border-red-500/30 transition-colors">
-                    <ZapOff className="w-5 h-5 text-red-400" />
+                  <div className="p-3 lab-panel rounded-sm h-fit transition-colors" style={{ borderColor: 'rgba(var(--ne-accent-rgb), 0.2)' }}>
+                    <ZapOff className="w-5 h-5" style={{ color: 'var(--ne-accent)' }} />
                   </div>
                   <div>
-                    <h4 className="text-white font-display font-semibold mb-1">Energy Inefficiency</h4>
-                    <p className="text-sm text-gray-500 leading-relaxed">Moving data between CPU/GPU and RAM consumes 100x more energy than the computation itself.</p>
+                    <h4 className="font-display font-semibold mb-1" style={{ color: 'var(--ne-text-headline)' }}>Energy Dominated by Memory Access</h4>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--ne-text-muted)' }}>
+                      Weights reside in memory. Compute occurs in separate logic units. Energy and latency are dominated by data movement — not arithmetic.
+                    </p>
                   </div>
                 </div>
-                
+
                 <div className="flex gap-6 group">
-                  <div className="p-3 lab-panel rounded-sm h-fit group-hover:border-orange-500/30 transition-colors">
-                    <MemoryStick className="w-5 h-5 text-orange-400" />
+                  <div className="p-3 lab-panel rounded-sm h-fit transition-colors" style={{ borderColor: 'rgba(var(--ne-accent-rgb), 0.2)' }}>
+                    <MemoryStick className="w-5 h-5" style={{ color: 'var(--ne-accent)' }} />
                   </div>
                   <div>
-                    <h4 className="text-white font-display font-semibold mb-1">Bandwidth Limitations</h4>
-                    <p className="text-sm text-gray-500 leading-relaxed">The "Memory Wall" restricts the scaling of large language models on edge devices and autonomous systems.</p>
+                    <h4 className="font-display font-semibold mb-1" style={{ color: 'var(--ne-text-headline)' }}>Data Movement is the Bottleneck</h4>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--ne-text-muted)' }}>
+                      As models scale, data movement — not arithmetic — becomes the bottleneck. Edge systems cannot afford this overhead.
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lab-panel p-10 rounded-sm relative overflow-hidden border-white/10 shadow-2xl"
+            className="lab-panel p-10 rounded-xl relative overflow-hidden"
           >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/30 to-transparent" />
-            
+            <div className="absolute top-0 left-0 w-full h-[2px]"
+              style={{ background: 'linear-gradient(to right, transparent, rgba(var(--ne-accent-rgb), 0.3), transparent)' }}
+            />
+
             <div className="flex items-center justify-between mb-12">
               <div className="text-center">
-                <div className="w-20 h-20 border border-white/10 flex items-center justify-center mb-3 bg-white/5 rounded-sm">
-                  <Cpu className="w-8 h-8 text-gray-400" />
+                <div className="w-20 h-20 border flex items-center justify-center mb-3 rounded-sm"
+                  style={{ borderColor: 'var(--ne-border)', backgroundColor: 'rgba(var(--ne-accent-rgb), 0.03)' }}
+                >
+                  <Cpu className="w-8 h-8" style={{ color: 'var(--ne-text-muted)' }} />
                 </div>
-                <span className="font-mono text-[10px] text-gray-500 uppercase tracking-widest">Processor</span>
+                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: 'var(--ne-text-dim)' }}>Processor</span>
               </div>
-              
+
               <div className="flex-1 flex flex-col items-center relative px-6">
-                <div className="w-full h-[1px] bg-red-500/20 relative">
-                  <motion.div 
-                    className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-red-500 rounded-full blur-[4px]"
+                <div className="w-full h-[1px] relative" style={{ backgroundColor: 'rgba(var(--ne-accent-rgb), 0.2)' }}>
+                  <motion.div
+                    className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full blur-[4px]"
+                    style={{ backgroundColor: 'var(--ne-accent)' }}
                     animate={{ left: ["0%", "100%", "0%"] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   />
                   <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
-                    <AlertTriangle className="w-4 h-4 text-red-500 animate-pulse" />
-                    <span className="font-mono text-[8px] text-red-500 uppercase tracking-widest">Data Bottleneck</span>
+                    <AlertTriangle className="w-4 h-4 animate-pulse" style={{ color: 'var(--ne-accent)' }} />
+                    <span className="font-mono text-[8px] uppercase tracking-widest" style={{ color: 'var(--ne-accent)' }}>Data Bottleneck</span>
                   </div>
                 </div>
               </div>
-              
+
               <div className="text-center">
-                <div className="w-20 h-20 border border-white/10 flex items-center justify-center mb-3 bg-white/5 rounded-sm">
-                  <MemoryStick className="w-8 h-8 text-gray-400" />
+                <div className="w-20 h-20 border flex items-center justify-center mb-3 rounded-sm"
+                  style={{ borderColor: 'var(--ne-border)', backgroundColor: 'rgba(var(--ne-accent-rgb), 0.03)' }}
+                >
+                  <MemoryStick className="w-8 h-8" style={{ color: 'var(--ne-text-muted)' }} />
                 </div>
-                <span className="font-mono text-[10px] text-gray-500 uppercase tracking-widest">Memory</span>
+                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: 'var(--ne-text-dim)' }}>Memory</span>
               </div>
             </div>
-            
-            <div className="grid grid-cols-2 gap-4 pt-8 border-t border-white/5">
-              <div className="p-4 bg-white/5 rounded-sm">
-                <div className="text-xs text-gray-500 font-mono mb-1 uppercase tracking-widest">Compute</div>
-                <div className="text-xl font-display font-bold text-white">~1 pJ</div>
+
+            <div className="grid grid-cols-2 gap-4 pt-8" style={{ borderTop: '1px solid var(--ne-border)' }}>
+              <div className="p-4 rounded-sm" style={{ backgroundColor: 'rgba(var(--ne-accent-rgb), 0.03)' }}>
+                <div className="text-xs font-mono mb-1 uppercase tracking-widest" style={{ color: 'var(--ne-text-dim)' }}>Compute</div>
+                <div className="text-xl font-display font-bold" style={{ color: 'var(--ne-text-headline)' }}>~1 pJ</div>
               </div>
-              <div className="p-4 bg-red-500/5 rounded-sm border border-red-500/10">
-                <div className="text-xs text-red-500/60 font-mono mb-1 uppercase tracking-widest">Transfer</div>
-                <div className="text-xl font-display font-bold text-red-500">~100 pJ</div>
+              <div className="p-4 rounded-sm border" style={{ backgroundColor: 'rgba(var(--ne-accent-rgb), 0.05)', borderColor: 'var(--ne-border-accent)' }}>
+                <div className="text-xs font-mono mb-1 uppercase tracking-widest" style={{ color: 'var(--ne-accent)' }}>Transfer</div>
+                <div className="text-xl font-display font-bold" style={{ color: 'var(--ne-accent)' }}>~100 pJ</div>
               </div>
             </div>
 
             <div className="mt-8 text-center">
-              <p className="text-[10px] font-mono text-gray-600 uppercase tracking-[0.3em]">
-                99% of Energy is Wasted on Movement
+              <p className="text-[10px] font-mono uppercase tracking-[0.3em]" style={{ color: 'var(--ne-text-dim)' }}>
+                99% of Energy is Wasted on Data Movement
               </p>
             </div>
           </motion.div>

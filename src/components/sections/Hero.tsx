@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Play, Sparkles } from 'lucide-react';
+import { ArrowRight, ChevronRight } from 'lucide-react';
 import { Button } from '@/src/components/ui/Button';
 import { Badge } from '@/src/components/ui/Badge';
 import { Container } from '@/src/components/layout/Container';
@@ -28,7 +28,6 @@ export default function Hero() {
     const el = sectionRef.current;
     if (!el) return;
 
-    // Only load 3D scene when hero is visible
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -42,7 +41,6 @@ export default function Hero() {
     return () => observer.disconnect();
   }, []);
 
-  // Check for low-end device
   const isLowEnd = typeof navigator !== 'undefined' && (navigator.hardwareConcurrency || 4) <= 2;
 
   return (
@@ -64,8 +62,8 @@ export default function Hero() {
           <div className="flex items-center gap-3">
             <div className="w-8 h-[2px] bg-[var(--ne-accent)]" />
             <Badge>
-              <Sparkles className="w-3 h-3 mr-1.5" />
-              Next-Gen AI Hardware
+              <ChevronRight className="w-3 h-3 mr-1.5" />
+              In-Memory Compute Architecture
             </Badge>
           </div>
 
@@ -76,26 +74,26 @@ export default function Hero() {
           </h1>
 
           <p className="text-lg md:text-xl font-light max-w-xl leading-relaxed" style={{ color: 'var(--ne-text-muted)' }}>
-            The next evolution of AI hardware. Analog ReRAM crossbar arrays that eliminate the memory wall, delivering{' '}
-            <span style={{ color: 'var(--ne-accent)' }}>O(1)</span> matrix operations at the edge.
+            NeuraEdge is an in-memory compute architecture built on analog ReRAM crossbar arrays, designed to eliminate the von Neumann bottleneck in edge AI systems.
+          </p>
+
+          <p className="text-sm max-w-xl leading-relaxed" style={{ color: 'var(--ne-text-dim)' }}>
+            Simulated results (20nm node, 128×128 array): {'<'}1µs inference latency · 900+ TOPS/W · Sub-picojoule energy per MAC
           </p>
 
           <div className="flex flex-wrap gap-4 mt-2">
             <a
-              href="https://reram-simulation-hfnk8pm6bnjdhgxfp2hpag.streamlit.app/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#architecture"
             >
               <Button variant="primary" size="lg" className="gap-3 group">
                 Explore Architecture <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </a>
-            <Button variant="outline" size="lg" className="gap-3">
-              <Play className="w-4 h-4" /> View Simulation
-            </Button>
-            <Button variant="secondary" size="lg" className="gap-3">
-              <Sparkles className="w-4 h-4" /> Join Early Access
-            </Button>
+            <a href="#performance">
+              <Button variant="outline" size="lg" className="gap-3">
+                View Simulation Results
+              </Button>
+            </a>
           </div>
 
           <div className="flex items-center gap-8 pt-8 border-t border-[var(--ne-border)]">
@@ -110,9 +108,6 @@ export default function Hero() {
                 <span className="text-[10px] uppercase tracking-[0.2em] mt-1" style={{ color: 'var(--ne-text-dim)' }}>
                   {stat.label}
                 </span>
-                {i < HERO_STATS.length - 1 && (
-                  <div className="hidden" />
-                )}
               </div>
             ))}
           </div>

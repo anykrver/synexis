@@ -5,10 +5,17 @@ import { Container } from '@/src/components/layout/Container';
 import { AnimatedCounter } from '@/src/components/ui/AnimatedCounter';
 
 const KEY_METRICS = [
-  { value: 1000, suffix: '+', label: 'TOPS/W', desc: 'Tera-ops per Watt' },
-  { value: 0.1, suffix: ' pJ', prefix: '<', label: 'Per MAC', desc: 'Energy per operation', decimals: 1 },
-  { value: 1, suffix: 'µs', prefix: '<', label: 'Latency', desc: 'Inference time' },
-  { value: 100, suffix: 'x', label: 'Efficiency', desc: 'vs. modern GPUs' },
+  { value: 900, suffix: '+', label: 'TOPS/W', desc: 'System-level efficiency' },
+  { value: 0.1, suffix: ' pJ', prefix: '~', label: 'Per MAC', desc: 'Energy per operation', decimals: 1 },
+  { value: 1, suffix: 'µs', prefix: '<', label: 'Latency', desc: 'End-to-end inference' },
+  { value: 128, suffix: '×128', label: 'Array', desc: 'Crossbar dimensions' },
+];
+
+const SIM_CONFIG = [
+  { label: 'Process Node', value: '20nm CMOS' },
+  { label: 'Array Size', value: '128×128' },
+  { label: 'Precision', value: '8-bit equivalent (quantized)' },
+  { label: 'Workload', value: 'Edge inference' },
 ];
 
 export default function Performance() {
@@ -18,8 +25,8 @@ export default function Performance() {
 
       <Container>
         <SectionTitle
-          subtitle="Benchmarks"
-          title="Unmatched Efficiency"
+          subtitle="System-Level Simulation Results"
+          title="Benchmark Snapshot"
         />
 
         {/* Key metrics row */}
@@ -51,6 +58,25 @@ export default function Performance() {
             </motion.div>
           ))}
         </div>
+
+        {/* Simulation Configuration */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="p-8 rounded-xl border border-[var(--ne-border)] mb-12"
+          style={{ backgroundColor: 'var(--ne-surface)' }}
+        >
+          <h4 className="font-mono text-[10px] uppercase tracking-[0.3em] mb-6" style={{ color: 'var(--ne-text-dim)' }}>Simulation Configuration</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {SIM_CONFIG.map((item, idx) => (
+              <div key={idx}>
+                <span className="text-[10px] font-mono uppercase tracking-widest block mb-1" style={{ color: 'var(--ne-text-dim)' }}>{item.label}</span>
+                <span className="text-sm font-semibold" style={{ color: 'var(--ne-text-headline)' }}>{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Comparison cards */}
         <div className="grid lg:grid-cols-3 gap-6">
@@ -97,7 +123,7 @@ export default function Performance() {
               <div className="mt-8 pt-4 border-t border-[var(--ne-border)]">
                 <div className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: 'var(--ne-accent)' }} />
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em]" style={{ color: 'var(--ne-text-dim)' }}>Verified in Simulation</span>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em]" style={{ color: 'var(--ne-text-dim)' }}>Simulation-Derived</span>
                 </div>
               </div>
             </motion.div>
@@ -158,6 +184,11 @@ export default function Performance() {
             </div>
           </motion.div>
         </div>
+
+        {/* Disclaimer */}
+        <p className="mt-8 text-center text-xs font-light italic" style={{ color: 'var(--ne-text-dim)' }}>
+          All metrics derived from SPICE-level and architectural simulation models.
+        </p>
       </Container>
     </section>
   );

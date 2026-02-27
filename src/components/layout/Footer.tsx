@@ -28,7 +28,7 @@ export default function Footer() {
               <span className="font-display font-bold text-lg text-[var(--ne-text-headline)]">NeuraEdge</span>
             </Link>
             <p className="text-sm text-[var(--ne-text-muted)] leading-relaxed max-w-xs">
-              Next-generation analog AI accelerator hardware. Compute where data lives.
+              In-memory compute architecture for edge AI systems. Compute where data lives.
             </p>
           </div>
 

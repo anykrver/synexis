@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Container } from '@/src/components/layout/Container';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight, FileText, Users } from 'lucide-react';
 
 export default function CTA() {
   const [email, setEmail] = useState('');
@@ -35,60 +35,79 @@ export default function CTA() {
           />
 
           <div className="relative z-10">
-            <div className="flex justify-center mb-6">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                style={{ backgroundColor: 'rgba(var(--ne-accent-rgb), 0.1)' }}
-              >
-                <Sparkles className="w-6 h-6" style={{ color: 'var(--ne-accent)' }} />
-              </div>
-            </div>
-
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Join the <span className="text-gradient">Early Access</span>
+              Toward <span className="text-gradient">Post-Von-Neumann</span> Edge Intelligence
             </h2>
-            <p className="text-lg max-w-xl mx-auto mb-10" style={{ color: 'var(--ne-text-muted)' }}>
-              Be among the first to experience the next generation of AI hardware. Get updates on our silicon progress and early access to dev tools.
+            <p className="text-lg max-w-2xl mx-auto mb-6" style={{ color: 'var(--ne-text-muted)' }}>
+              As AI moves from cloud to edge, architecture must evolve. NeuraEdge explores a compute paradigm where memory and arithmetic are unified at the device level — enabling scalable, energy-efficient inference directly on silicon.
+            </p>
+            <p className="text-sm max-w-xl mx-auto mb-10" style={{ color: 'var(--ne-text-dim)' }}>
+              We are building the foundation for next-generation in-memory intelligence.
             </p>
 
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                className="flex-1 px-5 py-3.5 text-sm rounded-xl border border-[var(--ne-border)] focus:outline-none focus:border-[var(--ne-accent)] transition-colors"
-                style={{
-                  backgroundColor: 'var(--ne-bg)',
-                  color: 'var(--ne-text)',
-                }}
-                required
-              />
-              <button
-                type="submit"
-                className="px-6 py-3.5 text-sm font-semibold rounded-xl flex items-center justify-center gap-2 magnetic-hover focus-ring transition-all"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+              <button className="px-6 py-3.5 text-sm font-semibold rounded-xl flex items-center justify-center gap-2 magnetic-hover focus-ring transition-all"
                 style={{
                   backgroundColor: 'var(--ne-accent)',
                   color: 'var(--ne-bg)',
                 }}
               >
-                Get Access <ArrowRight className="w-4 h-4" />
+                <FileText className="w-4 h-4" /> Request Technical Brief
               </button>
-            </form>
-
-            {submitted && (
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-4 text-sm font-mono"
-                style={{ color: 'var(--ne-accent)' }}
+              <button className="px-6 py-3.5 text-sm font-semibold rounded-xl flex items-center justify-center gap-2 magnetic-hover focus-ring transition-all border border-[var(--ne-border)] hover:border-[var(--ne-border-accent)]"
+                style={{
+                  backgroundColor: 'transparent',
+                  color: 'var(--ne-text)',
+                }}
               >
-                ✓ You're on the list! We'll be in touch.
-              </motion.p>
-            )}
+                <Users className="w-4 h-4" /> Join Early Research Access
+              </button>
+            </div>
 
-            <p className="mt-6 text-xs" style={{ color: 'var(--ne-text-dim)' }}>
-              No spam. Unsubscribe anytime. Research updates only.
-            </p>
+            <div className="pt-8" style={{ borderTop: '1px solid var(--ne-border)' }}>
+              <p className="text-xs mb-4" style={{ color: 'var(--ne-text-dim)' }}>
+                Get updates on our research progress
+              </p>
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  className="flex-1 px-5 py-3.5 text-sm rounded-xl border border-[var(--ne-border)] focus:outline-none focus:border-[var(--ne-accent)] transition-colors"
+                  style={{
+                    backgroundColor: 'var(--ne-bg)',
+                    color: 'var(--ne-text)',
+                  }}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="px-6 py-3.5 text-sm font-semibold rounded-xl flex items-center justify-center gap-2 magnetic-hover focus-ring transition-all"
+                  style={{
+                    backgroundColor: 'var(--ne-accent)',
+                    color: 'var(--ne-bg)',
+                  }}
+                >
+                  Subscribe <ArrowRight className="w-4 h-4" />
+                </button>
+              </form>
+
+              {submitted && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-4 text-sm font-mono"
+                  style={{ color: 'var(--ne-accent)' }}
+                >
+                  ✓ You're on the list. Research updates only.
+                </motion.p>
+              )}
+
+              <p className="mt-4 text-xs" style={{ color: 'var(--ne-text-dim)' }}>
+                No spam. Unsubscribe anytime.
+              </p>
+            </div>
           </div>
         </motion.div>
       </Container>

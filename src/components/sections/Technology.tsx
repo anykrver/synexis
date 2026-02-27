@@ -16,9 +16,17 @@ export default function Technology() {
         <section className="py-24 relative overflow-hidden" id="technology">
             <Container>
                 <SectionTitle
-                    subtitle="Technology"
-                    title="The Architecture Behind the Breakthrough"
+                    subtitle="Our Approach"
+                    title="In-Memory Analog Compute"
                 />
+
+                <p className="text-lg font-light leading-relaxed max-w-3xl mb-12" style={{ color: 'var(--ne-text-muted)' }}>
+                    NeuraEdge integrates compute directly within resistive memory arrays.
+                    Weights are stored as analog conductance values inside 1T1R ReRAM cells.
+                    Input activations are applied as voltage pulses. Ohm's and Kirchhoff's laws
+                    perform parallel current summation — executing matrix-vector multiplication
+                    in a single analog step.
+                </p>
 
                 <div className="grid md:grid-cols-2 gap-6">
                     {TECHNOLOGY_CARDS.map((card, idx) => (

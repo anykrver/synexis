@@ -2,12 +2,35 @@ import { motion } from 'motion/react';
 import { SectionTitle } from '@/src/components/ui/SectionTitle';
 import { Container } from '@/src/components/layout/Container';
 import { ROADMAP_PHASES } from '@/src/lib/constants';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Shield } from 'lucide-react';
 
 export default function Roadmap() {
   return (
     <section className="py-24 relative overflow-hidden" id="roadmap">
       <Container>
+        {/* Technology Readiness Level */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16 p-8 rounded-xl border text-center"
+          style={{ backgroundColor: 'var(--ne-surface)', borderColor: 'var(--ne-border)' }}
+        >
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Shield className="w-5 h-5" style={{ color: 'var(--ne-accent)' }} />
+            <span className="font-mono text-sm uppercase tracking-widest" style={{ color: 'var(--ne-accent)' }}>Technology Readiness</span>
+          </div>
+          <h3 className="text-2xl font-display font-bold mb-2">TRL-2</h3>
+          <p className="text-sm" style={{ color: 'var(--ne-text-muted)' }}>System-level and circuit-level simulation validated</p>
+          <div className="mt-6 flex flex-wrap justify-center gap-4">
+            {['Device variability modeling', 'Endurance characterization', 'Peripheral energy optimization', 'Tile-level scaling'].map((item) => (
+              <span key={item} className="text-[10px] font-mono uppercase tracking-widest px-3 py-1 rounded-full border border-[var(--ne-border)]" style={{ color: 'var(--ne-text-dim)' }}>
+                {item}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
         <SectionTitle
           subtitle="Roadmap"
           title="Path to Silicon"
@@ -78,8 +101,7 @@ export default function Roadmap() {
                     style={{ backgroundColor: 'var(--ne-surface)' }}
                   >
                     <div className={`flex items-center gap-2 mb-3 ${isLeft ? 'justify-end' : 'justify-start'}`}>
-                      <span className={`text-[10px] font-mono uppercase tracking-[0.2em] ${phase.status === 'completed' ? '' : phase.status === 'current' ? '' : ''
-                        }`}
+                      <span className="text-[10px] font-mono uppercase tracking-[0.2em]"
                         style={{
                           color: phase.status === 'current' ? 'var(--ne-accent)' : 'var(--ne-text-dim)',
                         }}
@@ -112,7 +134,7 @@ export default function Roadmap() {
                 transition={{ delay: idx * 0.1 }}
                 className="flex-shrink-0 w-[280px] snap-center"
               >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-display font-bold text-xs mb-6 relative`}
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center font-display font-bold text-xs mb-6 relative"
                   style={{
                     backgroundColor: phase.status === 'current' ? 'rgba(var(--ne-accent-rgb), 0.1)' : 'var(--ne-surface)',
                     color: phase.status === 'current' ? 'var(--ne-accent)' : 'var(--ne-text-muted)',

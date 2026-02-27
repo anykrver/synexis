@@ -1,65 +1,65 @@
 export const PERFORMANCE_METRICS = [
   {
     label: "Energy Efficiency",
-    neuroEdge: "< 0.1 pJ",
+    neuroEdge: "~0.1 pJ",
     gpu: "~10 pJ",
     cpu: "~100 pJ",
     unit: "per MAC"
   },
   {
-    label: "Latency",
-    neuroEdge: "Ultra-Low",
-    gpu: "Medium",
-    cpu: "High",
-    unit: "In-situ"
+    label: "System Efficiency",
+    neuroEdge: "900–1000",
+    gpu: "~10",
+    cpu: "~0.1",
+    unit: "TOPS/W"
   },
   {
-    label: "Scaling",
-    neuroEdge: "O(1)",
-    gpu: "O(N)",
-    cpu: "O(N²)",
-    unit: "Time Complexity"
+    label: "Inference Latency",
+    neuroEdge: "<1µs",
+    gpu: "~100µs",
+    cpu: "~1ms",
+    unit: "end-to-end"
   }
 ];
 
 export const HERO_STATS = [
-  { value: 100, suffix: 'x', label: 'Efficiency' },
-  { value: 1, prefix: '<', suffix: 'µs', label: 'Latency' },
-  { value: 1000, suffix: '+', label: 'TOPS/W' },
+  { value: 1, prefix: '<', suffix: 'µs', label: 'Inference Latency' },
+  { value: 900, suffix: '+', label: 'TOPS/W' },
+  { value: 0.1, prefix: '<', suffix: ' pJ', label: 'Energy / MAC' },
 ];
 
 export const TECHNOLOGY_CARDS = [
   {
-    title: 'ReRAM Crossbar',
-    description: 'Memristive crossbar arrays storing neural network weights as analog conductance values. Computation happens where data lives — eliminating the memory wall.',
+    title: 'Analog Conductance Storage',
+    description: 'Weights are stored as analog conductance values inside 1T1R ReRAM cells. Non-volatile retention eliminates constant refresh and reduces standby energy.',
     icon: 'grid',
-    tag: 'In-Memory Compute',
+    tag: 'Weight Storage',
   },
   {
-    title: 'Analog MAC',
-    description: 'Single-cycle multiply-accumulate operations using Ohm\'s law and Kirchhoff\'s current law. Matrix-vector multiplication at the speed of physics.',
+    title: 'Parallel Current Summation',
+    description: 'Input activations applied as voltage pulses. Ohm\'s and Kirchhoff\'s laws perform parallel current summation — executing matrix-vector multiplication in a single analog step.',
     icon: 'zap',
-    tag: 'O(1) Operations',
+    tag: 'Analog Compute',
   },
   {
-    title: 'AI Acceleration',
-    description: 'Native neural network inference without the von Neumann bottleneck. Purpose-built for convolutional, recurrent, and transformer architectures.',
+    title: 'Zero Data Movement',
+    description: 'No weight fetch. No off-array data movement. No memory wall. Compute happens directly within the resistive memory arrays.',
     icon: 'brain',
-    tag: 'Neural Engine',
+    tag: 'In-Memory',
   },
   {
-    title: 'Energy Efficiency',
-    description: 'Sub-picojoule operations — 100x more efficient than state-of-the-art GPUs. Enabling AI at the edge without the data center power bill.',
+    title: 'Ultra-Low Energy',
+    description: 'Sub-picojoule energy per MAC operation. 900+ TOPS/W system-level efficiency at 20nm node with 128×128 crossbar arrays.',
     icon: 'leaf',
     tag: '< 0.1 pJ / MAC',
   },
 ];
 
 export const ROADMAP_PHASES = [
-  { year: '2024', title: 'Simulation & Emulation', desc: 'PyTorch integration of hardware-aware noise models and device-level simulation validation.', status: 'completed' },
-  { year: '2025', title: 'FPGA Prototype', desc: 'Digital logic verification of spike routing architecture with real-time inference demos.', status: 'current' },
-  { year: '2026', title: 'Test Chip Tapeout', desc: 'First 65nm analog/mixed-signal test vehicle with integrated ADC/DAC.', status: 'upcoming' },
-  { year: '2027', title: 'Commercial Silicon', desc: 'PCIe accelerator card for edge inference — production-ready for enterprise deployment.', status: 'upcoming' }
+  { year: '2026', title: 'Simulation Validation', desc: 'Crossbar simulation validation and architecture refinement. Device variability modeling and endurance characterization.', status: 'current' },
+  { year: '2027', title: 'FPGA Hybrid Prototype', desc: 'FPGA-assisted hybrid prototype for digital logic verification and peripheral energy optimization.', status: 'upcoming' },
+  { year: '2028', title: 'Multi-Tile Validation', desc: 'Multi-tile architecture validation with tile-level scaling and system integration testing.', status: 'upcoming' },
+  { year: 'Future', title: 'Full Silicon Tape-out', desc: 'Full silicon tape-out targeting production-grade in-memory compute for edge AI deployment.', status: 'upcoming' }
 ];
 
 export const NAV_LINKS = [
