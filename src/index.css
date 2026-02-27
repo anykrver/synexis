@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ═══════════════════════════════════════════════════════
+   THEME SYSTEM — CSS Custom Properties
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  --ne-bg: #0A0F1C;
+  --ne-bg-deep: #060A14;
+  --ne-surface: #111827;
+  --ne-surface-hover: #1a2332;
+  --ne-accent: #00F0FF;
+  --ne-accent-rgb: 0, 240, 255;
+  --ne-accent2: #8B5CF6;
+  --ne-accent2-rgb: 139, 92, 246;
+  --ne-text: #E5E7EB;
+  --ne-text-headline: #FFFFFF;
+  --ne-text-muted: #6B7280;
+  --ne-text-dim: #374151;
+  --ne-border: rgba(255, 255, 255, 0.06);
+  --ne-border-accent: rgba(0, 240, 255, 0.2);
+  --ne-glass: rgba(17, 24, 39, 0.6);
+  --ne-grid-dot: rgba(255, 255, 255, 0.04);
+  --ne-glow-strength: 0.15;
+  --ne-card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] {
+  --ne-bg: #F9FAFB;
+  --ne-bg-deep: #F3F4F6;
+  --ne-surface: #FFFFFF;
+  --ne-surface-hover: #F3F4F6;
+  --ne-accent: #0066FF;
+  --ne-accent-rgb: 0, 102, 255;
+  --ne-accent2: #7C3AED;
+  --ne-accent2-rgb: 124, 58, 237;
+  --ne-text: #111827;
+  --ne-text-headline: #030712;
+  --ne-text-muted: #6B7280;
+  --ne-text-dim: #9CA3AF;
+  --ne-border: rgba(0, 0, 0, 0.08);
+  --ne-border-accent: rgba(0, 102, 255, 0.25);
+  --ne-glass: rgba(255, 255, 255, 0.7);
+  --ne-grid-dot: rgba(0, 0, 0, 0.04);
+  --ne-glow-strength: 0.08;
+  --ne-card-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ═══════════════════════════════════════════════════════
+   LENIS SMOOTH SCROLL
+   ═══════════════════════════════════════════════════════ */
+
+html.lenis, html.lenis-smooth {
+  height: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+html {
+  scroll-behavior: initial;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════════ */
+
+body {
+  background-color: var(--ne-bg);
+  color: var(--ne-text);
+  font-family: var(--font-sans);
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Silicon wafer grid pattern */
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--ne-grid-dot) 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: center center;
+  @apply antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ne-text-headline);
+  font-family: var(--font-display);
+  @apply tracking-tight;
+  transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════════
+   COMPONENT UTILITIES
+   ═══════════════════════════════════════════════════════ */
+
+.lab-panel {
+  background-color: var(--ne-glass);
+  border: 1px solid var(--ne-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: background-color 0.4s, border-color 0.4s, box-shadow 0.4s;
+}
+
+.accent-glow-text {
+  text-shadow: 0 0 12px rgba(var(--ne-accent-rgb), 0.5);
+}
+
+.accent-glow-box {
+  box-shadow: 0 0 20px rgba(var(--ne-accent-rgb), var(--ne-glow-strength));
+  border-color: var(--ne-border-accent);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accent-glow-box:hover {
+  box-shadow: 0 0 40px rgba(var(--ne-accent-rgb), calc(var(--ne-glow-strength) * 2));
+  transform: translateY(-2px);
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, var(--ne-accent), var(--ne-accent2));
+}
+
+.text-gradient-subtle {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, var(--ne-text-headline), var(--ne-text-muted));
+}
+
+/* Magnetic hover effect for buttons */
+.magnetic-hover {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.magnetic-hover:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+.magnetic-hover:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Focus-visible — accessibility */
+.focus-ring {
+  @apply outline-none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--ne-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Section divider */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ne-border-accent), transparent);
+}
+
+/* ═══════════════════════════════════════════════════════
+   MARKDOWN BODY (for Research pages)
+   ═══════════════════════════════════════════════════════ */
+
+.markdown-body h1 {
+  @apply text-4xl font-bold mb-6 mt-12;
+  color: var(--ne-text-headline);
+  font-family: var(--font-display);
+}
+.markdown-body h2 {
+  @apply text-3xl font-semibold mb-4 mt-10;
+  color: var(--ne-text-headline);
+  font-family: var(--font-display);
+}
+.markdown-body h3 {
+  @apply text-2xl font-medium mb-3 mt-8;
+  color: var(--ne-text-headline);
+  font-family: var(--font-display);
+}
+.markdown-body p {
+  color: var(--ne-text);
+  @apply leading-relaxed mb-6 text-lg font-light;
+}
+.markdown-body strong {
+  color: var(--ne-text-headline);
+  @apply font-semibold;
+}
+.markdown-body ul {
+  color: var(--ne-text);
+  @apply list-disc list-inside mb-6 space-y-2;
+}
+.markdown-body blockquote {
+  border-left: 4px solid var(--ne-accent);
+  background: rgba(var(--ne-accent-rgb), 0.05);
+  @apply pl-6 italic my-8 py-4 pr-4;
+  color: var(--ne-text);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ne-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ne-text-dim);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ne-text-muted);
+}
