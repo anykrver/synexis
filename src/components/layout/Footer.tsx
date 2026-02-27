@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Cpu, Github, Twitter, Linkedin, ArrowRight } from 'lucide-react';
+import { Github, Twitter, Linkedin, ArrowRight } from 'lucide-react';
+import Logo from '@/src/components/ui/Logo';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
@@ -22,9 +23,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2.5 mb-4 group">
-              <div className="w-8 h-8 rounded-lg bg-[var(--ne-accent)] flex items-center justify-center">
-                <Cpu className="w-4 h-4 text-[var(--ne-bg)]" />
-              </div>
+              <Logo className="w-8 h-8" />
               <span className="font-display font-bold text-lg text-[var(--ne-text-headline)]">NeuraEdge</span>
             </Link>
             <p className="text-sm text-[var(--ne-text-muted)] leading-relaxed max-w-xs">

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Sun, Moon, Menu, X, Github, Cpu } from 'lucide-react';
+import { Sun, Moon, Menu, X, Github } from 'lucide-react';
+import Logo from '@/src/components/ui/Logo';
 import { NAV_LINKS } from '@/src/lib/constants';
 import { Button } from '@/src/components/ui/Button';
 import { Link, useLocation } from 'react-router-dom';
@@ -37,9 +38,7 @@ export default function Navbar() {
       style={{ backgroundColor: 'var(--ne-glass)' }}
     >
       <Link to="/" className="flex items-center gap-2.5 group" onClick={() => setIsOpen(false)}>
-        <div className="w-8 h-8 rounded-lg bg-[var(--ne-accent)] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          <Cpu className="w-4 h-4 text-[var(--ne-bg)]" />
-        </div>
+        <Logo className="w-8 h-8 group-hover:scale-110 transition-transform duration-300" />
         <span className="font-display font-bold text-lg tracking-wide text-[var(--ne-text-headline)]">
           NeuraEdge
         </span>
@@ -60,8 +59,8 @@ export default function Navbar() {
         <Link
           to="/research"
           className={`px-4 py-2 text-sm rounded-lg transition-colors hover:bg-[var(--ne-surface-hover)] focus-ring ${location.pathname.startsWith('/research')
-              ? 'text-[var(--ne-accent)]'
-              : 'text-[var(--ne-text-muted)] hover:text-[var(--ne-text-headline)]'
+            ? 'text-[var(--ne-accent)]'
+            : 'text-[var(--ne-text-muted)] hover:text-[var(--ne-text-headline)]'
             }`}
         >
           Research
@@ -69,8 +68,8 @@ export default function Navbar() {
         <Link
           to="/about"
           className={`px-4 py-2 text-sm rounded-lg transition-colors hover:bg-[var(--ne-surface-hover)] focus-ring ${location.pathname === '/about'
-              ? 'text-[var(--ne-accent)]'
-              : 'text-[var(--ne-text-muted)] hover:text-[var(--ne-text-headline)]'
+            ? 'text-[var(--ne-accent)]'
+            : 'text-[var(--ne-text-muted)] hover:text-[var(--ne-text-headline)]'
             }`}
         >
           About
