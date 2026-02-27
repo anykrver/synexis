@@ -8,7 +8,7 @@ import { ArrowRight, Clock, User, ChevronLeft, ChevronRight } from 'lucide-react
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from './ui/Button';
 
-const ARTICLES_PER_PAGE = 3;
+const ARTICLES_PER_PAGE = 6;
 
 export default function ResearchList() {
   const [currentPage, setCurrentPage] = useState(1);

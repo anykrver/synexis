@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Container } from '@/src/components/layout/Container';
 import { SectionTitle } from '@/src/components/ui/SectionTitle';
-import { Cpu, Users, Globe, Target, ShieldCheck, Zap } from 'lucide-react';
+import { Cpu, Globe, Target, ShieldCheck, Zap, GraduationCap, BookOpen, Github, Linkedin, Mail } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -13,26 +13,26 @@ export default function AboutPage() {
           transition={{ duration: 0.8 }}
         >
           <SectionTitle
-            subtitle="Our Mission"
-            title="Redefining the Future of Computation"
+            subtitle="About the Project"
+            title="Building the Future of Edge Compute"
           />
 
           <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
             <div className="space-y-6">
               <p className="text-xl font-light leading-relaxed" style={{ color: 'var(--ne-text-muted)' }}>
-                NeuraEdge was founded with a singular, ambitious goal: to break the von Neumann bottleneck that has constrained computing for over 70 years.
+                NeuraEdge is an undergraduate research project exploring in-memory compute architectures based on analog ReRAM crossbar arrays. The goal is to eliminate the von Neumann bottleneck for edge AI inference.
               </p>
               <p className="leading-relaxed" style={{ color: 'var(--ne-text-muted)' }}>
-                By merging memory and computation into a single physical fabric using ReRAM technology, we are building hardware that thinks like a brain—efficient, parallel, and incredibly fast. Our architecture doesn't just simulate neural networks; it embodies them.
+                By encoding neural network weights as analog conductance values in non-volatile memory, we can perform matrix-vector multiplication directly within the storage fabric — achieving compute parallelism, ultra-low latency, and sub-picojoule energy per operation in simulation.
               </p>
               <div className="grid grid-cols-2 gap-8 pt-8">
                 <div className="space-y-2">
-                  <h4 className="font-mono text-2xl font-bold" style={{ color: 'var(--ne-accent)' }}>100x</h4>
-                  <p className="text-xs uppercase tracking-widest" style={{ color: 'var(--ne-text-dim)' }}>Energy Efficiency</p>
+                  <h4 className="font-mono text-2xl font-bold" style={{ color: 'var(--ne-accent)' }}>TRL-2</h4>
+                  <p className="text-xs uppercase tracking-widest" style={{ color: 'var(--ne-text-dim)' }}>Readiness Level</p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-mono text-2xl font-bold" style={{ color: 'var(--ne-accent)' }}>10x</h4>
-                  <p className="text-xs uppercase tracking-widest" style={{ color: 'var(--ne-text-dim)' }}>Inference Speed</p>
+                  <h4 className="font-mono text-2xl font-bold" style={{ color: 'var(--ne-accent)' }}>20nm</h4>
+                  <p className="text-xs uppercase tracking-widest" style={{ color: 'var(--ne-text-dim)' }}>Simulation Node</p>
                 </div>
               </div>
             </div>
@@ -48,9 +48,9 @@ export default function AboutPage() {
               />
               <div className="relative z-10 space-y-8">
                 {[
-                  { icon: Target, title: 'Physics-First', desc: 'We leverage the intrinsic physical properties of memristors for computation.' },
-                  { icon: Zap, title: 'Edge-Native', desc: 'Designed for the most demanding real-time environments on the edge.' },
-                  { icon: ShieldCheck, title: 'Reliable AI', desc: 'Hardware-level security and deterministic performance for critical apps.' },
+                  { icon: Target, title: 'Physics-First', desc: 'Leveraging intrinsic physical properties of memristors for parallel computation.' },
+                  { icon: Zap, title: 'Edge-Native', desc: 'Designed for energy-constrained real-time environments at the sensor edge.' },
+                  { icon: ShieldCheck, title: 'Simulation-Validated', desc: 'All results backed by SPICE-level and architectural simulation models.' },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-4">
                     <div className="p-3 rounded-xl"
@@ -69,33 +69,108 @@ export default function AboutPage() {
           </div>
 
           <SectionTitle
-            subtitle="The Team"
-            title="Pioneers in Neuromorphic Engineering"
+            subtitle="Researcher"
+            title="About the Author"
           />
 
-          <div className="grid md:grid-cols-3 gap-8 mb-24">
-            {[
-              { name: 'Dr. Elena Vance', role: 'Chief Scientist', bio: 'Former Lead Researcher at Stanford Nano-Lab. 15+ years in memristive device physics.' },
-              { name: 'Marcus Chen', role: 'CEO & Founder', bio: 'Serial entrepreneur in the semiconductor space. Previously led architecture at ARM.' },
-              { name: 'Sarah Jenkins', role: 'Head of AI Systems', bio: 'Expert in hardware-aware neural network optimization and spike-based learning.' }
-            ].map((member, idx) => (
-              <div key={idx} className="p-6 rounded-xl border group hover:border-[var(--ne-border-accent)] transition-all"
-                style={{
-                  backgroundColor: 'var(--ne-surface)',
-                  borderColor: 'var(--ne-border)',
-                  borderTopWidth: '2px',
-                }}
-              >
-                <div className="w-16 h-16 rounded-xl mb-6 flex items-center justify-center transition-colors"
-                  style={{ backgroundColor: 'rgba(var(--ne-accent-rgb), 0.05)' }}
+          <div className="grid lg:grid-cols-3 gap-12 mb-24">
+            {/* Main Profile Card */}
+            <div className="lg:col-span-2 p-8 rounded-xl border border-[var(--ne-border)]"
+              style={{ backgroundColor: 'var(--ne-surface)' }}
+            >
+              <div className="flex items-start gap-6 mb-8">
+                <div className="w-20 h-20 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: 'rgba(var(--ne-accent-rgb), 0.1)' }}
                 >
-                  <Users className="w-8 h-8 transition-colors" style={{ color: 'var(--ne-text-muted)' }} />
+                  <GraduationCap className="w-10 h-10" style={{ color: 'var(--ne-accent)' }} />
                 </div>
-                <h4 className="font-mono uppercase text-sm mb-1">{member.name}</h4>
-                <p className="text-[10px] uppercase tracking-widest mb-4" style={{ color: 'var(--ne-accent)' }}>{member.role}</p>
-                <p className="text-sm font-light leading-relaxed" style={{ color: 'var(--ne-text-muted)' }}>{member.bio}</p>
+                <div>
+                  <h3 className="text-2xl font-display font-bold mb-1">Rahul Verma</h3>
+                  <p className="font-mono text-sm mb-1" style={{ color: 'var(--ne-accent)' }}>Researcher & Developer</p>
+                  <p className="text-sm" style={{ color: 'var(--ne-text-muted)' }}>4th Year, B.Tech Electronics & Communication Engineering</p>
+                  <p className="text-sm" style={{ color: 'var(--ne-text-muted)' }}>LNCT, Bhopal</p>
+                </div>
               </div>
-            ))}
+
+              <p className="text-base leading-relaxed mb-6" style={{ color: 'var(--ne-text-muted)' }}>
+                I'm a final-year electronics engineering student at Lakshmi Narain College of Technology (LNCT), Bhopal, with deep interest in analog circuit design, neuromorphic computing, and edge AI architectures. NeuraEdge is my undergraduate research project exploring how in-memory compute can eliminate the data movement bottleneck in edge AI systems.
+              </p>
+              <p className="text-base leading-relaxed mb-8" style={{ color: 'var(--ne-text-muted)' }}>
+                My work spans device-level SPICE simulation, crossbar array architecture design, hardware-aware neural network training, and full-stack development. This website itself is built to communicate the research in an accessible, visual format.
+              </p>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6" style={{ borderTop: '1px solid var(--ne-border)' }}>
+                {[
+                  { label: 'Focus', value: 'In-Memory Compute' },
+                  { label: 'Specialization', value: 'Analog VLSI' },
+                  { label: 'Tools', value: 'SPICE / PyTorch' },
+                  { label: 'Platform', value: 'ReRAM Crossbar' },
+                ].map((item, i) => (
+                  <div key={i}>
+                    <span className="block text-[10px] font-mono uppercase tracking-widest mb-1" style={{ color: 'var(--ne-text-dim)' }}>{item.label}</span>
+                    <span className="text-sm font-semibold">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Sidebar */}
+            <div className="space-y-6">
+              {/* Education */}
+              <div className="p-6 rounded-xl border border-[var(--ne-border)]"
+                style={{ backgroundColor: 'var(--ne-surface)' }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <BookOpen className="w-5 h-5" style={{ color: 'var(--ne-accent)' }} />
+                  <h4 className="font-mono text-sm uppercase tracking-widest">Education</h4>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <p className="font-semibold text-sm">B.Tech, Electronics & Communication</p>
+                    <p className="text-xs" style={{ color: 'var(--ne-text-muted)' }}>LNCT, Bhopal</p>
+                    <p className="text-xs" style={{ color: 'var(--ne-text-dim)' }}>2022 – 2026</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Research Interests */}
+              <div className="p-6 rounded-xl border border-[var(--ne-border)]"
+                style={{ backgroundColor: 'var(--ne-surface)' }}
+              >
+                <h4 className="font-mono text-sm uppercase tracking-widest mb-4">Research Interests</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['ReRAM Devices', 'Analog VLSI', 'In-Memory Compute', 'Edge AI', 'Neuromorphic Circuits', 'Neural Networks', 'SNN'].map((tag) => (
+                    <span key={tag} className="text-[10px] font-mono uppercase tracking-widest px-3 py-1 rounded-full border border-[var(--ne-border)]"
+                      style={{ color: 'var(--ne-text-muted)' }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Connect */}
+              <div className="p-6 rounded-xl border border-[var(--ne-border)]"
+                style={{ backgroundColor: 'var(--ne-surface)' }}
+              >
+                <h4 className="font-mono text-sm uppercase tracking-widest mb-4">Connect</h4>
+                <div className="space-y-3">
+                  {[
+                    { icon: Github, label: 'GitHub', href: '#' },
+                    { icon: Linkedin, label: 'LinkedIn', href: '#' },
+                    { icon: Mail, label: 'Email', href: 'mailto:rahul@neuraedge.dev' },
+                  ].map((link) => (
+                    <a key={link.label} href={link.href}
+                      className="flex items-center gap-3 text-sm hover:text-[var(--ne-accent)] transition-colors"
+                      style={{ color: 'var(--ne-text-muted)' }}
+                    >
+                      <link.icon className="w-4 h-4" />
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="p-12 rounded-xl border border-[var(--ne-border)] text-center relative overflow-hidden"
@@ -103,16 +178,16 @@ export default function AboutPage() {
           >
             <div className="absolute inset-0 blur-[100px] -z-10" style={{ backgroundColor: 'rgba(var(--ne-accent-rgb), 0.05)' }} />
             <Globe className="w-12 h-12 mx-auto mb-6 opacity-50" style={{ color: 'var(--ne-accent)' }} />
-            <h3 className="text-2xl font-semibold mb-4">Global Innovation, Silicon Valley Roots</h3>
+            <h3 className="text-2xl font-semibold mb-4">Undergraduate Research, Real-World Impact</h3>
             <p className="max-w-2xl mx-auto font-light" style={{ color: 'var(--ne-text-muted)' }}>
-              Headquartered in San Jose, CA, with research hubs in Zurich and Singapore. We are a global team of physicists, computer architects, and AI researchers united by a single vision.
+              NeuraEdge demonstrates that meaningful deep-tech research can begin at the undergraduate level. From device physics simulation to full-stack engineering, this project bridges hardware and software to explore the future of edge AI.
             </p>
             <div className="mt-8 flex justify-center gap-8 font-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: 'var(--ne-text-dim)' }}>
-              <span>San Jose</span>
+              <span>LNCT Bhopal</span>
               <span>•</span>
-              <span>Zurich</span>
+              <span>Electronics Engineering</span>
               <span>•</span>
-              <span>Singapore</span>
+              <span>Class of 2026</span>
             </div>
           </div>
         </motion.div>
